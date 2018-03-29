@@ -16,3 +16,21 @@
  * Export model functions as a module
  * ===========================================
  */
+
+module.exports = (pool) => {
+  return {
+      create: (user, callback) => {
+      let queryString = 'INSERT into users (name, email, password) VALUES ($1, $2, $3)';
+      console.log('user model');
+      console.log(user);
+      let values = [
+        user.name,
+        user.email,
+        user.password
+      ];
+      pool.query(queryString, values, (error, queryResult) => {
+        callback(error, queryResult);
+      });
+    }
+  }
+}

@@ -7,3 +7,19 @@
  *
  * Export the pool and models as a module using `module.exports`.
  */
+const pg = require('pg');
+const userModel = require('./models/user-mod');
+
+const configs = {
+  user: "jianhaotan",
+  host: "127.0.0.1",
+  database: "pokemons",
+  port: 5432
+};
+
+const pool = new pg.Pool(configs);
+
+module.exports = {
+  pool: pool,
+  user: userModel(pool)
+};

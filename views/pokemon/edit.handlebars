@@ -1,0 +1,25 @@
+<form action="/pokemons/{{pokemon.id}}/edit" method="post">
+  <label>ID:</label>
+  <input type="text" name="id" value={{pokemon.id}}>
+  <label>Number:</label>
+  <input type="text" name="num" value={{pokemon.num}}>
+  <label>Name:</label>
+  <input type="text" name="name" value={{pokemon.name}}>
+  <label>Image:</label>
+  <input type="text" name="img" value={{pokemon.img}}>
+  <label>Weight:</label>
+  <input type="text" name="weight" value={{pokemon.weight}}>
+  <label>Height:</label>
+  <input type="text" name="height" value={{pokemon.height}}>
+  {{!-- <label>Candy:</label>
+  <input type="text" name="candy" value={{pokemon.candy}}>
+  <label>Candy Count:</label>
+  <input type="number" name="candy_count" value={{pokemon.candy_count}}>
+  <label>Egg:</label>
+  <input type="text" name="egg" value={{pokemon.egg}}>
+  <label>Average Spawns:</label>
+  <input type="number" name="avg_spawns" step="0.01" min="0" value={{pokemon.avg_spawns}}>
+  <label>Spawn Time:</label>
+  <input type="text" name="spawn_time" value={{pokemon.spawn_time}}> --}}
+  <input type="submit" value="Submit">
+</form>

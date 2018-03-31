@@ -43,6 +43,30 @@ module.exports = (pool) => {
       pool.query(queryString, value, (error, queryResult) => {
         callback(error, queryResult);
       });
+    },
+    editForm: (pokemonId, callback) => {
+      let queryString = 'SELECT * from pokemons where id = $1';
+      let value = [pokemonId];
+      console.log('editForm mod value');
+      console.log(value);
+      pool.query(queryString, value, (error, queryResult) => {
+        callback(error, queryResult);
+      });
+    },
+    submitEdit: (pokeStats, callback) => {
+      let queryString = 'UPDATE pokemons set num = $1, name = $2, img = $3, weight = $4, height = $5 where id = $6';
+      let id = parseInt(pokeStats.id, 10);
+      let num = pokeStats.num;
+      let name = pokeStats.name;
+      let img = pokeStats.img;
+      let weight = pokeStats.weight;
+      let height = pokeStats.height;
+      let value = [num, name, img, weight, height, id];
+      console.log('submitEdit mod value');
+      console.log(value);
+      pool.query(queryString, value, (error, queryResult) => {
+        callback(error, queryResult);
+      });
     }
   }
 }

@@ -25,5 +25,6 @@ module.exports = (app, db) => {
   app.post('/pokemons/new', pokeCtrl.create(db));
   app.get('/pokemons/:id', pokeCtrl.getPokeDetails(db));
   app.post('/pokemons/:id/delete', pokeCtrl.deletePokemon(db));
-  // app.get('/pokemons/:id/edit', pokeCtrl.editForm);
+  app.get('/pokemons/:id/edit', pokeCtrl.editForm(db));
+  app.post('/pokemons/:id/edit', pokeCtrl.submitEdit(db));
 }

@@ -10,12 +10,19 @@
 const pg = require('pg');
 const userModel = require('./models/user-mod');
 const pokeModel = require('./models/pokemon-mod');
+require('dotenv').config();
 
+// const configs = {
+//   user: "jianhaotan",
+//   host: "127.0.0.1",
+//   database: "pokemons",
+//   port: 5432
+// };
 const configs = {
-  user: "jianhaotan",
-  host: "127.0.0.1",
-  database: "pokemons",
-  port: 5432
+  user: process.env.db_user,
+  host: process.env.db_host,
+  database: process.env.db_database,
+  port: process.env.db_port
 };
 
 const pool = new pg.Pool(configs);

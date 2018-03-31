@@ -2,11 +2,10 @@
   <label>Username/email:</label>
   <input type="text" value="" name="name">
   <label>Password:</label>
-  <input type="text" value="" name="password">
-  <input type="submit" value="Login"> {{#if msg}}
-  <p>{{msg}}</p>
-  {{else}}
-  <p></p>
+  <input type="password" value="" name="password">
+  <input type="submit" value="Login"> 
+  {{#if msg}}
+  <p id="error-msg">{{msg}}</p>
   {{/if}}
   <div>
     <p>Not a user?</p>

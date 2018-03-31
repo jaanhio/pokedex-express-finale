@@ -1,0 +1,47 @@
+<div id="pokeDetail">
+  <div id="img">
+    <img src={{pokeDetails.img}}>
+  </div>
+  <div>
+    <ul>
+      <li class="pokemon-attribute">
+        id: {{pokeDetails.id}}
+      </li>
+      <li class="pokemon-attribute">
+        num: {{pokeDetails.num}}
+      </li>
+      <li class="pokemon-attribute">
+        name: {{pokeDetails.name}}
+      </li>
+      <li class="pokemon-attribute">
+        height: {{pokeDetails.height}}
+      </li>
+      <li class="pokemon-attribute">
+        weight: {{pokeDetails.weight}}
+      </li>
+      {{!-- <li class="pokemon-attribute">
+        candy: {{pokeDetails.candy}}
+      </li>
+      <li class="pokemon-attribute">
+        candy_count: {{pokeDetails.candy_count}}
+      </li>
+      <li class="pokemon-attribute">
+        egg: {{pokeDetails.egg}}
+      </li>
+      <li class="pokemon-attribute">
+        avg_spawns: {{pokeDetails.avg_spawns}}
+      </li>
+      <li class="pokemon-attribute">
+        spawn_time: {{pokeDetails.spawn_time}}
+      </li> --}}
+    </ul>
+  </div>
+  <div id="actionbar">
+    <form action='/pokemons/{{pokeDetails.id}}/delete' method="post">
+      <input type="submit" value="delete pokemon">
+    </form>
+    <form action="/pokemons/{{pokeDetails.id}}/edit" method="get">
+      <input type="submit" value="Edit">
+    </form>
+  </div>
+</div>

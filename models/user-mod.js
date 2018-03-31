@@ -16,20 +16,50 @@
  * Export model functions as a module
  * ===========================================
  */
+const bcrypt = require('bcrypt');
 
 module.exports = (pool) => {
   return {
       create: (user, callback) => {
       let queryString = 'INSERT into users (name, email, password) VALUES ($1, $2, $3)';
-      console.log('user model');
-      console.log(user);
-      let values = [
-        user.name,
-        user.email,
-        user.password
-      ];
-      pool.query(queryString, values, (error, queryResult) => {
-        callback(error, queryResult);
+      bcrypt.hash(user.password, 1, (err, hash) => {
+        let values = [
+          user.name,
+          user.email,
+          hash
+        ];
+        pool.query(queryString, values, (error, queryResult) => {
+          callback(error, queryResult);
+        });
+      });
+    },
+
+    login: (user, callback) => {
+      let inputUser = [user.name];
+      let inputPW = user.password;
+      console.log(inputPW);
+      console.log(inputUser);
+      let queryString = 'SELECT * from users where name = $1';
+
+      pool.query(queryString, inputUser, (error, queryResult) => {
+        console.log('querying');
+        console.log(queryResult.rows);
+        if (error) {
+          console.log('error with query');
+        }
+        else {
+          if (queryResult.rows[0] === undefined) {
+            console.log('user not found');
+            callback(error, queryResult.rows[0]);
+          }
+          else {
+            let hashedPW = queryResult.rows[0].password;
+            console.log(`hashedPW is ${hashedPW}`);
+            bcrypt.compare(inputPW, hashedPW).then(result => {
+              callback(error, result);
+            });
+          }
+        }
       });
     }
   }

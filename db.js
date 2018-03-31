@@ -9,6 +9,7 @@
  */
 const pg = require('pg');
 const userModel = require('./models/user-mod');
+const pokeModel = require('./models/pokemon-mod');
 
 const configs = {
   user: "jianhaotan",
@@ -21,5 +22,6 @@ const pool = new pg.Pool(configs);
 
 module.exports = {
   pool: pool,
-  user: userModel(pool)
+  user: userModel(pool),
+  pokemon: pokeModel(pool)
 };

@@ -44,15 +44,24 @@ routes(app, db);
 
 // Root GET request (it doesn't belong in any controller file)
 app.get('/', (request, response) => {
-  let queryString = 'SELECT * from pokemons';
+  let queryString = request.query.sortby === 'name' ? 'SELECT * from pokemons order by name' : 'SELECT * from pokemons';
+  let loggedIn = request.cookies.loggedIn;
+  console.log(loggedIn);
+  let username = request.cookies.username;
+  console.log(username);
   db.pool.query(queryString, (error, queryResult) => {
     if (error) {
       console.log('error')
       console.log(error.stack);
     }
     else {
+      let context = {
+        loggedIn: loggedIn,
+        username: username,
+        pokeArr: queryResult.rows
+      };
       let pokeArr = queryResult.rows;
-      response.render('home', { pokeArr: pokeArr });
+      response.render('home', context);
     }
   });
 });
@@ -69,9 +78,9 @@ app.get('*', (request, response) => {
 const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of port 3000 ~~~'));
 
 // Run clean up actions when server shuts down
-server.on('close', () => {
+server.on('close', (db) => {
   console.log('Closed express server');
 
   // close database connection pool
-
+  db.pool.end();
 });

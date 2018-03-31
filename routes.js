@@ -8,17 +8,22 @@
  * to be imported (using `require(...)`) in `index.js`.
  */
 const userCtrl = require('./controllers/user-ctrl');
+const pokeCtrl = require('./controllers/pokemon-ctrl');
 
 
 module.exports = (app, db) => {
 
-  // handles user login page
-  // app.get("/user/login", (request, response) => {
-  //   response.render("user/login");
-  // });
 
   app.get('/user/login', userCtrl.loginForm);
+  app.post('/user/login', userCtrl.login(db));
   app.get('/user/new', userCtrl.newForm);
   app.post('/user/new', userCtrl.create(db));
-  // app.get('/user/logout', userCtrl.logOut);
+  app.get('/user/logout', userCtrl.logOut);
+
+
+  app.get('/pokemons/new', pokeCtrl.newForm);
+  app.post('/pokemons/new', pokeCtrl.create(db));
+  app.get('/pokemons/:id', pokeCtrl.getPokeDetails(db));
+  app.post('/pokemons/:id/delete', pokeCtrl.deletePokemon(db));
+  // app.get('/pokemons/:id/edit', pokeCtrl.editForm);
 }

@@ -1,4 +1,7 @@
 <div class="details">
+  {{#if loggedIn}}
+  <h4>Current logged in as: {{username}}</h4>
+  {{/if}}
   {{#each pokeArr}}
   <div class="pokeDiv">
     <div class="imgDiv">
@@ -6,7 +9,7 @@
     </div>
     <div class="detailsDiv">
       <p>
-        <a href="/{{this.id}}">{{this.id}}</a>
+        <a href="/pokemons/{{this.id}}">{{this.id}}</a>
       </p>
       <h5 class="pokeName">{{this.name}}</h5>
     </div>

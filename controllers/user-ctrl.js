@@ -44,8 +44,35 @@ const loginForm = (request, response) => {
 }
 
 const logOut = (request, response) => {
-  response.clearCookies();
+  response.clearCookie('loggedIn');
+  response.clearCookie('username');
   response.redirect('/');
+}
+
+const login = (db) => {
+  return (request, response) => {
+    let userDetails = request.body;
+    db.user.login(userDetails, (error, hashCheckResult) => {
+      if (error) {
+        console.log('error stack is here');
+        console.log(error.stack);
+      }
+      else {
+        if (hashCheckResult === true) {
+          response.cookie('loggedIn', true);
+          response.cookie('username', userDetails.name);
+          response.redirect('/');
+        }
+        else {
+          console.log('hashCheckResult is false');
+          let context = {
+            msg: 'Invalid username/pw'
+          }
+          response.render('user/login', context);
+        }
+      }
+    });
+  }
 }
 
 /**
@@ -58,5 +85,6 @@ module.exports = {
   loginForm,
   newForm,
   create,
-  logOut
+  logOut,
+  login
 };
